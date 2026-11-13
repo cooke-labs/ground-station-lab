@@ -1,64 +1,42 @@
 # Network foundation
 
-The current template defines one VNet, two private subnets, and two NSGs. These resources were deployed and read back from Azure on 2026-11-13; see [the evidence record](../evidence/public/network-2026-11-13.md). It creates no VMs, public IPs or monitoring workspace. Packet-flow verification remains pending.
+The [subscription-level Bicep entrypoint](../infra/main.bicep) defines the dedicated resource group, its ownership tag and the [network module](../infra/network.bicep). The network has one VNet, two private subnets and two NSGs. It has no VMs, public IPs or monitoring workspace. The network was deployed and read back on 2026-11-13; see [sanitized evidence](../evidence/public/network-2026-11-13.md). Packet tests are pending.
 
-## Requirements and local validation
+## Validate locally without Azure
 
-- PowerShell 7 (`pwsh`) on Windows x64 or Linux x64.
-- `Az.Accounts`, `Az.Resources` and `Az.Network` modules for deployment/inspection.
-- An Azure subscription and suitable resource deployment permissions.
-
-From the repository root:
+From the repository root in PowerShell 7:
 
 ```powershell
 ./scripts/Test-LabBicep.ps1
 ```
 
-This downloads the pinned standalone Bicep compiler from Microsoft's official release, checks its SHA-256, and compiles the template into ignored `artifacts/`. It does not authenticate to Azure or deploy anything. The CI workflow runs the same check with read-only repository permissions. Compilation does not establish deployed network behavior.
+This compiles `main.bicep` and its network module with a pinned, hash-checked Bicep compiler. It does not make Azure calls. CI runs the same check. Compilation proves template syntax, not live network behavior.
 
-## Preview and deploy with Azure PowerShell
+## Preview from Azure Cloud Shell PowerShell
 
-For a fresh deployment, run `./scripts/Preview-Network.ps1` from this repository in your signed-in PowerShell 7 terminal. It verifies the selected subscription, creates the empty dedicated resource group if needed, refuses to proceed if that group already contains resources, and runs a network what-if. It sets TLS 1.3 for its process because this host's Azure Resource Manager TLS 1.2 handshake was reset; it does not change a machine-wide setting. The helper is for an empty group; it now stops on the already-deployed lab group. The equivalent commands are shown below for transparency.
+The local PowerShell client has repeatedly lost TLS handshakes to Azure Resource Manager. Use [Azure Cloud Shell](https://learn.microsoft.com/en-us/azure/cloud-shell/overview) in **PowerShell** mode to run the deployment from an Azure-hosted environment. An [ephemeral session](https://learn.microsoft.com/en-us/azure/cloud-shell/get-started/ephemeral) does not require a storage account; its files disappear when the session ends. Cloud Shell is an alternate execution location, not a replacement for the Bicep source in GitHub.
 
-```powershell
-Connect-AzAccount
-Get-AzContext  # Verify the intended subscription before proceeding.
-
-$labBicep = & ./scripts/Get-LabBicep.ps1
-$env:PATH = "$(Split-Path $labBicep -Parent)$([IO.Path]::PathSeparator)$env:PATH"
-$labGroup = 'rg-ground-station-lab'
-$labRegion = 'westus2'
-
-# Use a dedicated lab group. Check for an existing group before creating it.
-$existingGroup = Get-AzResourceGroup -Name $labGroup -ErrorAction SilentlyContinue
-if ($null -eq $existingGroup) {
-    New-AzResourceGroup -Name $labGroup -Location $labRegion -ErrorAction Stop
-}
-
-$networkDeployment = @{
-    Name = 'checkpoint-01-network'
-    ResourceGroupName = $labGroup
-    TemplateFile = './infra/network.bicep'
-    TemplateParameterObject = @{ namePrefix = 'gsdl'; location = $labRegion }
-    ErrorAction = 'Stop'
-}
-New-AzResourceGroupDeployment @networkDeployment -WhatIf -WhatIfResultFormat FullResourcePayload
-```
-
-Review the expected VNet and two NSGs, subnet ranges and rule priorities. Check any existing resources before proceeding. The resource group creation above is a real operation; the subsequent what-if previews the network deployment.
-
-After reviewing that preview:
+In Cloud Shell PowerShell:
 
 ```powershell
-$deployment = New-AzResourceGroupDeployment @networkDeployment
-$deployment | Select-Object ProvisioningState
-Get-AzVirtualNetwork -ResourceGroupName $labGroup -Name 'gsdl-vnet'
-Get-AzNetworkSecurityGroup -ResourceGroupName $labGroup |
-    Select-Object Name, SecurityRules
+Set-AzContext -Subscription 'ground-station-lab'
+git clone https://github.com/cooke-labs/ground-station-lab.git
+Set-Location ./ground-station-lab
+New-AzSubscriptionDeployment -Name ground-station-lab -Location westus2 -TemplateFile ./infra/main.bicep -WhatIf -WhatIfResultFormat FullResourcePayload
 ```
 
-The current rules apply to exactly the two documented subnets. Reassess the policy before adding other subnets or peerings. Default outbound access is explicitly disabled; future hosts need an explicit egress path. No VM administration rule exists yet. Packet tests require the later hosts and receiver.
+The last command is a preview. It makes no resource changes. Review the group tag, VNet, subnet prefixes and NSG rule changes. Because the three network resources already exist, inspect any proposed modification before deploying. Do not treat a what-if result as proof that packets flow as intended.
+
+After reviewing the preview, apply the same Bicep file with Azure PowerShell:
+
+```powershell
+New-AzSubscriptionDeployment -Name ground-station-lab -Location westus2 -TemplateFile ./infra/main.bicep
+```
+
+The template is declarative and can be deployed again to converge the listed resources. Keep later VM and monitoring resources inside the dedicated group and add them to the Bicep entrypoint. Use the [lifecycle guide](lifecycle.md) for stopping VMs and tearing down the group.
+
+The current rules apply to exactly the two documented subnets. Reassess them before adding other subnets or peerings. Default outbound access is explicitly disabled; future hosts need an egress path. No VM administration rule exists yet.
 
 Do not publish raw outputs containing account or subscription identifiers. Record sanitized deployment and test evidence separately.
 
-[Microsoft PowerShell deployment reference](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-powershell)
+[Microsoft: deploy Bicep from Cloud Shell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cloud-shell) · [Microsoft: what-if](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if)
