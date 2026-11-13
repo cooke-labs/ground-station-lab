@@ -1,6 +1,6 @@
 # Ground Station Defense Lab
 
-**Status: first network checkpoint, 2026-11-13. Bicep compiles locally; Azure deployment and packet behavior are not yet validated.**
+**Status: first network checkpoint, 2026-11-13. The VNet and two NSGs are deployed in West US 2. Live packet behavior is not yet validated.**
 
 A public Azure security operations lab: protect a small ground-station analogue, investigate controlled events, and explain the evidence behind selected security controls. All mission data is synthetic. This is an independent educational project, not a representation of any employer's architecture.
 
@@ -10,6 +10,7 @@ The target is a reproducible two-VM network, working log collection and detectio
 - [Architecture, telemetry contract, and scenarios](docs/architecture.md)
 - [Control mapping plan](docs/control-map.md)
 - [SPARTA replay scenario mapping](docs/sparta-mapping.md)
+- [Network deployment evidence](evidence/public/network-2026-11-13.md)
 
 Planned demonstration: **generate a mission anomaly → detect it → investigate host, network, and control-plane evidence → choose containment → restore service → show the control evidence and remaining gaps.**
 

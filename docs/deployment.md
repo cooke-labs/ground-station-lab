@@ -1,6 +1,6 @@
 # Network foundation
 
-The current template defines one VNet, two private subnets, and two NSGs. It creates no VMs, public IPs or monitoring workspace. Configuration and packet-flow verification in Azure are still pending.
+The current template defines one VNet, two private subnets, and two NSGs. These resources were deployed and read back from Azure on 2026-11-13; see [the evidence record](../evidence/public/network-2026-11-13.md). It creates no VMs, public IPs or monitoring workspace. Packet-flow verification remains pending.
 
 ## Requirements and local validation
 
@@ -18,7 +18,7 @@ This downloads the pinned standalone Bicep compiler from Microsoft's official re
 
 ## Preview and deploy with Azure PowerShell
 
-For the first preview, run `./scripts/Preview-Network.ps1` from this repository in your signed-in PowerShell 7 terminal. It verifies the selected subscription, creates the empty dedicated resource group if needed, refuses to proceed if that group already contains resources, and runs a network what-if. Share a redacted preview for review before applying. The equivalent commands are shown below for transparency.
+For a fresh deployment, run `./scripts/Preview-Network.ps1` from this repository in your signed-in PowerShell 7 terminal. It verifies the selected subscription, creates the empty dedicated resource group if needed, refuses to proceed if that group already contains resources, and runs a network what-if. It sets TLS 1.3 for its process because this host's Azure Resource Manager TLS 1.2 handshake was reset; it does not change a machine-wide setting. The helper is for an empty group; it now stops on the already-deployed lab group. The equivalent commands are shown below for transparency.
 
 ```powershell
 Connect-AzAccount

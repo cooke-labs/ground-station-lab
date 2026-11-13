@@ -3,6 +3,8 @@
 param()
 
 $ErrorActionPreference = 'Stop'
+# This host's ARM TLS 1.2 handshake reset; TLS 1.3 succeeded in the current process.
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls13
 $repoRoot = Split-Path $PSScriptRoot -Parent
 $context = Get-AzContext
 if ($null -eq $context -or $context.Subscription.Name -ne 'ground-station-lab') {
