@@ -18,6 +18,8 @@ This downloads the pinned standalone Bicep compiler from Microsoft's official re
 
 ## Preview and deploy with Azure PowerShell
 
+For the first preview, run `./scripts/Preview-Network.ps1` from this repository in your signed-in PowerShell 7 terminal. It verifies the selected subscription, creates the empty dedicated resource group if needed, refuses to proceed if that group already contains resources, and runs a network what-if. Share a redacted preview for review before applying. The equivalent commands are shown below for transparency.
+
 ```powershell
 Connect-AzAccount
 Get-AzContext  # Verify the intended subscription before proceeding.
