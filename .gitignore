@@ -1,0 +1,39 @@
+# Local job material and private operational evidence
+/Cyber Defense Analyst II.txt
+/HANDOFF.md
+/docs/project-plan.md
+/docs/role-and-learning.md
+/docs/agent-handoffs.md
+/docs/progress.md
+/docs/mission-tools.md
+/docs/sources.md
+/docs/checkpoints/
+/.private/
+/evidence/raw/
+/artifacts/
+/.tools/
+*.pcap
+*.pcapng
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.local.json
+*.local.bicepparam
+/.azure/
+/.ssh/
+*AzureContext*.json
+
+# Runtime outputs
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
