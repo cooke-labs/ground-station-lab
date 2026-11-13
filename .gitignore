@@ -12,6 +12,7 @@
 /evidence/raw/
 /artifacts/
 /.tools/
+/ground-station-lab/
 *.pcap
 *.pcapng
 
