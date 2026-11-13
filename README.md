@@ -7,6 +7,7 @@ A public Azure security operations lab: protect a small ground-station analogue,
 The target is a reproducible two-VM network, working log collection and detections, an incident investigation, a hunt, and an evidence-linked control map. The current implementation is the network foundation; hosts and monitoring are not deployed yet.
 
 - [Validate and deploy the network](docs/deployment.md)
+- [Stand up, stop and tear down the lab](docs/lifecycle.md)
 - [Architecture, telemetry contract, and scenarios](docs/architecture.md)
 - [Control mapping plan](docs/control-map.md)
 - [SPARTA replay scenario mapping](docs/sparta-mapping.md)
