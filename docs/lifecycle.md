@@ -1,6 +1,6 @@
 # Lab lifecycle and cost control
 
-The [Bicep entrypoint](../infra/main.bicep) is the infrastructure definition. It creates or updates the dedicated `rg-ground-station-lab` resource group in `westus2` and its network module. [Preview and deploy it](deployment.md) with `New-AzSubscriptionDeployment` from Azure Cloud Shell PowerShell. The script below is a convenience wrapper for operations; it is not the infrastructure definition.
+The [Bicep entrypoint](../infra/main.bicep) is the infrastructure definition. It creates or updates the dedicated `rg-ground-station-lab` resource group in `westus2` and its network module. [Preview and deploy it](deployment.md) with `New-AzSubscriptionDeployment` from your local PowerShell terminal. The script below is a convenience wrapper for operations; it is not the infrastructure definition.
 
 From the repository root in PowerShell 7, with the `ground-station-lab` subscription selected:
 
@@ -15,7 +15,7 @@ From the repository root in PowerShell 7, with the `ground-station-lab` subscrip
 ./scripts/Lab.ps1 -Action Remove -Execute   # Delete the dedicated resource group
 ```
 
-The wrapper checks the selected subscription name locally. Its `Deploy` action submits one subscription-level Bicep deployment or what-if operation. It does not first call Azure to inspect the group or tag it. Other actions verify the resource group's location and ownership tag before acting. If your local connection to Azure Resource Manager keeps resetting during TLS handshakes, run these PowerShell commands from Cloud Shell after cloning the public repository.
+The wrapper checks the selected subscription name locally. Its `Deploy` action submits one subscription-level Bicep deployment or what-if operation. It does not first call Azure to inspect the group or tag it. Other actions verify the resource group's location and ownership tag before acting.
 
 `Stop -Execute` deallocates VM compute. Managed disks, public IPs, storage and workspace ingestion/retention can still incur charges while VMs are off. `Remove -Execute` destroys the entire dedicated group, including any evidence stored only inside it. Export and sanitize evidence first. Never store the only copy of project material in a VM disk.
 

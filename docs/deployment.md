@@ -12,16 +12,14 @@ From the repository root in PowerShell 7:
 
 This compiles `main.bicep` and its network module with a pinned, hash-checked Bicep compiler. It does not make Azure calls. CI runs the same check. Compilation proves template syntax, not live network behavior.
 
-## Preview from Azure Cloud Shell PowerShell
+## Preview from local PowerShell 7
 
-The local PowerShell client has repeatedly lost TLS handshakes to Azure Resource Manager. Use [Azure Cloud Shell](https://learn.microsoft.com/en-us/azure/cloud-shell/overview) in **PowerShell** mode to run the deployment from an Azure-hosted environment. An [ephemeral session](https://learn.microsoft.com/en-us/azure/cloud-shell/get-started/ephemeral) does not require a storage account; its files disappear when the session ends. Cloud Shell is an alternate execution location, not a replacement for the Bicep source in GitHub.
+Use the repository checkout in your terminal. The source of truth is the Bicep in GitHub; Azure PowerShell submits it for preview and deployment. This host has had intermittent TLS resets to Azure Resource Manager. If a deployment call loses its connection, check its status in Azure before retrying because the request might already have reached Azure.
 
-In Cloud Shell PowerShell:
+From the repository root:
 
 ```powershell
 Set-AzContext -Subscription 'ground-station-lab'
-git clone https://github.com/cooke-labs/ground-station-lab.git
-Set-Location ./ground-station-lab
 New-AzSubscriptionDeployment -Name ground-station-lab -Location westus2 -TemplateFile ./infra/main.bicep -WhatIf -WhatIfResultFormat FullResourcePayload
 ```
 
@@ -39,4 +37,4 @@ The current rules apply to exactly the two documented subnets. Reassess them bef
 
 Do not publish raw outputs containing account or subscription identifiers. Record sanitized deployment and test evidence separately.
 
-[Microsoft: deploy Bicep from Cloud Shell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-cloud-shell) · [Microsoft: what-if](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if)
+[Microsoft: deploy Bicep with Azure PowerShell](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-powershell) · [Microsoft: what-if](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-what-if)
