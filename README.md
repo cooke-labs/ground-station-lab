@@ -8,6 +8,7 @@ The target is a reproducible two-VM network, working log collection and detectio
 
 - [Validate and deploy the network](docs/deployment.md)
 - [Stand up, stop and tear down the lab](docs/lifecycle.md)
+- [Compute candidate and cost gate](docs/compute-decision.md)
 - [Architecture, telemetry contract, and scenarios](docs/architecture.md)
 - [Control mapping plan](docs/control-map.md)
 - [SPARTA replay scenario mapping](docs/sparta-mapping.md)
