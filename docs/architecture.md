@@ -1,13 +1,13 @@
 # Architecture and scenario contract
 
-Status: proposed design, not implemented. Names and address ranges below are lab defaults; check conflicts before deployment.
+Status: network foundation deployed; compute deployment tested and removed to control cost. Monitoring and telemetry remain planned.
 
 The diagram and JSON contract describe the Python baseline. A future NASA cFS extension would use binary telemetry, a separate command direction and configuration-specific ports. Such integration is not implemented; do not mix those assumptions with the baseline port/schema.
 
 ```mermaid
 flowchart LR
-    U["Learner: Azure PowerShell and SSH"] -->|"SSH keys; source /32"| S
-    U -->|"SSH keys; source /32"| G
+    U["Learner: Azure PowerShell"] -->|"Azure Run Command"| S
+    U -->|"Azure Run Command"| G
     subgraph Azure["Dedicated Azure lab resource group"]
       subgraph VNet["VNet 10.42.0.0/16"]
         S["telemetry-sim\n10.42.10.0/24"] -->|"Private UDP 5514\nNSG allow"| G["ground-rx\n10.42.20.0/24"]
@@ -27,8 +27,8 @@ flowchart LR
 
 - One resource group, region, VNet, workspace, and Sentinel instance; two small supported Ubuntu LTS VMs selected for quota/agent support. Pin tested image, tool, and API versions in the implementation.
 - `telemetry-sim` represents a remote telemetry source, not a spacecraft. `ground-rx` represents a ground ingestion service. The simulated IP link is not an RF or space protocol model.
-- Management plane: Azure PowerShell/portal under the learner's account. Guest plane: SSH using local keys and a named Linux operator. Inventory both identity systems separately; similar names do not establish that two events have the same actor.
-- For the short lab, each VM gets an explicit Standard public IP for outbound access, with inbound SSH restricted to the learner's current IPv4 `/32`; password and root SSH disabled. Telemetry is private only. Deny all other unsolicited ingress, including public UDP. Document this lab convenience and the production alternative of private administration/managed egress.
+- Management plane: Azure PowerShell under the learner's account, initially using Azure Run Command for guest administration. A named Linux operator and local SSH key are provisioned for recovery, but no inbound SSH rule is created. Inventory Azure identity and guest identity separately; similar names do not establish that two events have the same actor.
+- Each VM gets an explicit Standard public IP for outbound access. The NSGs permit no unsolicited inbound access from the internet. Telemetry is private only. Document the public IP as a lab egress convenience and the production alternative of private administration and managed egress.
 - Do not rely on implicit outbound access. Explicit egress is required for predictable bootstrap and AMA operation under current Azure networking defaults. Limit outbound ports to documented bootstrap/monitoring needs where feasible; any broad bootstrap egress is an explicit gap, not a claim of restricted production egress. [Azure outbound documentation](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access)
 - NSGs need explicit cross-subnet denies ahead of default VNet allows. Permit simulator private source → receiver private address UDP/5514; permit only the documented management path; deny other inter-subnet initiation in each direction. NSGs are stateful; verify new connections when testing a rule change. Keep DNS, time synchronization, required platform/agent access, and recovery administration working. [NSG behavior](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
 

@@ -1,6 +1,6 @@
 # Compute candidate and cost gate
 
-Status: candidate selected for the next deployment preview. No VM has been provisioned.
+Status: two VMs were briefly provisioned on 2026-11-14, then deallocated and deleted with their disks, NICs, public IPs and shutdown schedules. The network remains deployed.
 
 ## Why this size
 
@@ -14,4 +14,4 @@ Microsoft documents `Standard_D2as_v6` as 2 vCPUs, 8 GiB RAM, x86-64, Generation
 
 Microsoft's public Retail Prices API returned a regular Linux consumption rate of **USD 0.0908 per VM-hour** for `Standard_D2as_v6` in `westus2` on 2026-11-13. Two VMs running continuously for five days would cost **USD 21.79 in compute** (`0.0908 × 2 × 120`, rounded). Deallocating them sooner reduces compute hours. This estimate excludes managed disks, public IPs, outbound data, Log Analytics, Sentinel, and any other service. Retail rates can differ from the subscription's effective billing rate. [Retail Prices API](https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices)
 
-The project has a **USD 150 maximum over five days**. Before provisioning VMs, set a budget alert, define a shutdown schedule, and estimate the remaining components. A budget alert is a notification, not a spending cap. Keep all lab resources in the dedicated group for inventory and teardown; document any subscription-scoped exceptions. [Lifecycle commands](lifecycle.md)
+The project has a **USD 150 maximum over five days**. A $150 monthly resource-group budget with 50% and 80% alerts was deployed and verified. The compute template includes daily 03:00 Pacific VM shutdown schedules. A budget alert is a notification, not a spending cap. Keep all lab resources in the dedicated group for inventory and teardown; document any subscription-scoped exceptions. [Lifecycle commands](lifecycle.md)

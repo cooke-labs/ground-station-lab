@@ -11,4 +11,8 @@ New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 if ($LASTEXITCODE -ne 0) {
     throw "Bicep compilation failed with exit code $LASTEXITCODE."
 }
-Write-Host 'PASS: main.bicep and its network module compile. Azure deployment and packet behavior are not yet validated.'
+& $compiler build (Join-Path $repoRoot 'infra/budget.bicep') --outfile (Join-Path $outputDirectory 'budget.json')
+if ($LASTEXITCODE -ne 0) {
+    throw "Budget Bicep compilation failed with exit code $LASTEXITCODE."
+}
+Write-Host 'PASS: lab network, compute, and budget Bicep compile. Azure deployment and packet behavior are not yet validated.'
