@@ -10,6 +10,16 @@ permissions:
   contents: read
 
 jobs:
+  telemetry:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Test UDP replay detection and duplicate rejection
+        run: python3 -m unittest discover -s tests -v
   bicep:
     runs-on: ubuntu-24.04
     timeout-minutes: 5

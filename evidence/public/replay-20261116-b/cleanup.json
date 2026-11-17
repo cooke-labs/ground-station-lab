@@ -1,0 +1,24 @@
+{
+  "run_id": "replay-20261116-b",
+  "verified_utc": "2026-11-17T05:07:53.5329165Z",
+  "region": "westus2",
+  "scope": "lab resource group",
+  "evidence_export_verified": true,
+  "compute_counts": {
+    "Microsoft.DevTestLab/schedules": 0,
+    "Microsoft.Compute/virtualMachines": 0,
+    "Microsoft.Network/networkInterfaces": 0,
+    "Microsoft.Compute/disks": 0,
+    "Microsoft.Network/publicIPAddresses": 0
+  },
+  "remaining": [
+    {
+      "resource_type": "Microsoft.Network/networkSecurityGroups",
+      "count": 2
+    },
+    {
+      "resource_type": "Microsoft.Network/virtualNetworks",
+      "count": 1
+    }
+  ]
+}

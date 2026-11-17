@@ -1,0 +1,21 @@
+{
+  "run_id": "replay-20261116-b",
+  "region": "westus2",
+  "python_version_both_hosts": "3.12.3",
+  "application_source_sha256": "4859b1f0113811bdda2c1be887f92b9e2fc74db39649768884a7ab9bf5abc7d4",
+  "initial_controller_sha256": "38ed970216ba63068ceb5983153fc056d012036ad5310d0f6d38a3e29c875e19",
+  "source_hash_format": "LF source bytes; on Windows verify against an LF checkout or the Git blob",
+  "first_observation_utc": "2026-11-17T02:13:56.642873+00:00",
+  "last_observation_utc": "2026-11-17T05:02:09.582348+00:00",
+  "guest_export_finished_utc": "2026-11-17T05:03:20.7451862Z",
+  "payload_capture_sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8",
+  "payload_capture_bytes": 215,
+  "destination": "10.42.20.4:5514/udp",
+  "minimum_configured_spacing_seconds_within_multi_packet_command": 1,
+  "pause_before_first_five_copy_replay_seconds": 11,
+  "receiver_event_limit": 100,
+  "receiver_runtime_seconds": 1100,
+  "systemd_service_runtime_limit_seconds": 1200,
+  "recovery": "The first controller stopped after completing replay transmission. Recovery exported the existing unmitigated receiver logs, then continued with the mitigated receiver and sender export. It did not repeat the original replay stimulus.",
+  "public_review": "Synthetic telemetry, private lab IPs and synthetic event UUIDs retained. Raw Azure command outputs, account context and resource IDs excluded."
+}

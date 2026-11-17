@@ -1,0 +1,65 @@
+{
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "attack/analysis.json",
+      "sha256": "f0b006c49bcfcf2571c127eac44c3fe9c6994c3a530ba8fec42804ca8efb1396"
+    },
+    {
+      "path": "attack/events.jsonl",
+      "sha256": "61c7922a476f6b789fca09b40fb3a2f22105cb72e60ee53e6c3dd613b2bb2b3f"
+    },
+    {
+      "path": "attack/received.bin",
+      "sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8"
+    },
+    {
+      "path": "baseline/analysis.json",
+      "sha256": "0c7cf50dffee60f06121427c4617165019a4393e73649f28768023a2b43d486e"
+    },
+    {
+      "path": "baseline/events.jsonl",
+      "sha256": "f33504acb46836436b24577a227e2cfc4389b26f84fb31bf1e550022c3c51235"
+    },
+    {
+      "path": "baseline/received.bin",
+      "sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "5cb498cae7ac5a07b9ab5d59325b246f3fe38ba726babcd48a2e83faabd27ba0"
+    },
+    {
+      "path": "mitigated/analysis.json",
+      "sha256": "79620d799c36b670331b3dd966de9c983f9f404e21db9da115ecd3b6f71e4111"
+    },
+    {
+      "path": "mitigated/events.jsonl",
+      "sha256": "f8c0c50190be053a948e59e3f4b2706c7e91b4b8df86b13026e246758404cfa2"
+    },
+    {
+      "path": "mitigated/received.bin",
+      "sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8"
+    },
+    {
+      "path": "original.bin",
+      "sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8"
+    },
+    {
+      "path": "receiver-captured.bin",
+      "sha256": "585ee74ed3f353b2982f3a1eb501326fafcfa0463a0c8dd66c963084c9adb7b8"
+    },
+    {
+      "path": "run.json",
+      "sha256": "454bce89678b9d432c2884bff0181015f2fc0fc294e1dc0e5292e64c22c013ff"
+    },
+    {
+      "path": "sender.jsonl",
+      "sha256": "7c6bc433691255ace6d5d2e00e04f2c81eb923e67c72158ec8950f6d2bfb1937"
+    },
+    {
+      "path": "test-results.txt",
+      "sha256": "2d7f406082657a0d83b6a0d2349a23018388cf26b2f8fb5316e7370ae14f143a"
+    }
+  ]
+}

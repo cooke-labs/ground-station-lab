@@ -1,0 +1,8 @@
+test_benign_retry_does_not_meet_threshold (test_telemetry_lab.ReplayTests.test_benign_retry_does_not_meet_threshold) ... ok
+test_burst_detected_and_invalid_packet_rejected (test_telemetry_lab.ReplayTests.test_burst_detected_and_invalid_packet_rejected) ... ok
+test_mitigation_rejects_duplicates_and_preserves_fresh_telemetry (test_telemetry_lab.ReplayTests.test_mitigation_rejects_duplicates_and_preserves_fresh_telemetry) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.201s
+
+OK

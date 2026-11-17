@@ -1,0 +1,22 @@
+{
+  "rule": "D1",
+  "threshold": 3,
+  "window_seconds": 10,
+  "counts": {
+    "telemetry": 4,
+    "duplicate_sequence": 5
+  },
+  "alerts": [
+    {
+      "event_type": "replay_candidate",
+      "observed_time_utc": "2026-11-17T05:02:05.536433+00:00",
+      "src_ip": "10.42.10.4",
+      "mission_id": "synthetic-mission",
+      "asset_id": "synthetic-sat-01",
+      "duplicate_count": 3,
+      "window_seconds": 10,
+      "trigger_event_id": "81331607-82de-41b4-8f8b-a097025f20d2",
+      "confidence": "duplicate behavior; intent requires investigation"
+    }
+  ]
+}

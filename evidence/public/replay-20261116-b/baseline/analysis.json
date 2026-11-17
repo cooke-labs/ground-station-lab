@@ -1,0 +1,10 @@
+{
+  "rule": "D1",
+  "threshold": 3,
+  "window_seconds": 10,
+  "counts": {
+    "telemetry": 5,
+    "duplicate_sequence": 1
+  },
+  "alerts": []
+}
